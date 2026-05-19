@@ -76,6 +76,9 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+#AI agent configuration files
+.puku/
+
 # dotenv environment variable files
 .env
 .env.development.local

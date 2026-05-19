@@ -2,6 +2,7 @@ import express from "express";
 import noteRouter from "./routes/note.route.js"
 import connectDB from "./config/db.js";
 import dotenv from "dotenv";
+import rateLimiter from "./middlewear/rateLimiter.js";
 // if we use type=commonjs in our package.json file, the import syntax will be as follows:
 // const express = require("express");
 
@@ -11,19 +12,27 @@ import dotenv from "dotenv";
 const app = express();
 
 dotenv.config();
-connectDB();
 
 // a middleweare which parse the json bodies
+//what is middleware?
+//middleware is a function that has access to the request object, response object, and the next middleware function in the application's request-response cycle.
 app.use(express.json());
+app.use(rateLimiter);
+
+// Our simple middlewear
+// app.use((req, res, next) => {
+//     console.log(`Req method is ${req.method} & Req URL is ${req.url}`);
+//     next();
+// });
 
 const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => {
+connectDB().then(() => {
+    app.listen(PORT, () => {
     console.log(`Server started on PORT: ${PORT}`);
+    });
 });
 
-//what is middleware?
-//middleware is a function that has access to the request object, response object, and the next middleware function in the application's request-response cycle.
 
 app.use("/api/notes", noteRouter);
 
