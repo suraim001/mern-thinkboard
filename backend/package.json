@@ -1,0 +1,29 @@
+{
+  "name": "mern-thinkboard",
+  "version": "1.0.0",
+  "description": "It is a complete MERN stack tutorial.",
+  "homepage": "https://github.com/suraim001/mern-thinkboard#readme",
+  "bugs": {
+    "url": "https://github.com/suraim001/mern-thinkboard/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suraim001/mern-thinkboard.git"
+  },
+  "license": "ISC",
+  "author": "Fawaj Suraim",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2",
+    "mongoose": "^9.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
