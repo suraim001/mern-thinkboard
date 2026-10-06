@@ -6,11 +6,11 @@ import NoteDetailPage from './pages/NoteDetailPage';
 const App = () => {
   return (
     <div data-theme="forest">
-      <button className='btn btn-light'>Click Me</button>
+      
       <Routes>
-        <Route path='/notes' element={<HomePage />}></Route>
-        <Route path='/notes/create' element= {<CreatePage />}></Route>
-        <Route path='/notes/:id' element={<NoteDetailPage />}></Route>
+        <Route path='/' element={<HomePage />}></Route>
+        <Route path='/create' element= {<CreatePage />}></Route>
+        <Route path='/:id' element={<NoteDetailPage />}></Route>
       </Routes>
     </div>
   )

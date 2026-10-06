@@ -1,8 +1,13 @@
 import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+
 import noteRouter from "./routes/note.route.js"
 import connectDB from "./config/db.js";
-import dotenv from "dotenv";
 import rateLimiter from "./middlewear/rateLimiter.js";
+
+
+
 // if we use type=commonjs in our package.json file, the import syntax will be as follows:
 // const express = require("express");
 
@@ -16,8 +21,12 @@ dotenv.config();
 // a middleweare which parse the json bodies
 //what is middleware?
 //middleware is a function that has access to the request object, response object, and the next middleware function in the application's request-response cycle.
+app.use(cors({
+    origin: "http://localhost:5173",
+}));
 app.use(express.json());
 app.use(rateLimiter);
+
 
 // Our simple middlewear
 // app.use((req, res, next) => {
