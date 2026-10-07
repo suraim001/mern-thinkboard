@@ -4,14 +4,14 @@ import { createNotes, deleteNotes, getNoteById, getNotes, updateNotes }  from ".
 const router = express.Router();
 
 
-router.get('/getnotes', getNotes); // fetch all notes using get method
-router.get('/getnotes/:id', getNoteById);
+router.get('/', getNotes); // fetch all notes using get method
+router.get('/:id', getNoteById);
 
-router.post('/create', createNotes); // create a note using post method
+router.post('/', createNotes); // create a note using post method
 
-router.put('/update/:id', updateNotes); //update a note using patch or put method
+router.put('/:id', updateNotes); //update a note using patch or put method
 
-router.delete('/delete/:id', deleteNotes); // delete a note using delete method
+router.delete('/:id', deleteNotes); // delete a note using delete method
 
 
 export default router;

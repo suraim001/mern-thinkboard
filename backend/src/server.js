@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import noteRouter from "./routes/note.route.js"
 import connectDB from "./config/db.js";
 import rateLimiter from "./middlewear/rateLimiter.js";
+import router from "./routes/note.route.js";
 
 
 
@@ -43,5 +43,6 @@ connectDB().then(() => {
 });
 
 
-app.use("/api/notes", noteRouter);
+app.use("/api/notes", router);
+
 
