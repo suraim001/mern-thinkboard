@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const NoteCard = ({note}) => {
 
-  const handleDelete = async (e, _id)=> {
+  const handleDelete = async (e,_id)=> {
     e.preventDefault();
     if(!window.confirm("Are you want to delete the note?")) return;
 
