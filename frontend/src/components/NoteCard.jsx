@@ -4,7 +4,7 @@ import { formatDate } from "../lib/utils.js";
 import api from "../lib/axios.js";
 import toast from "react-hot-toast";
 
-const NoteCard = ({note}) => {
+const NoteCard = ({note, setNotes}) => {
 
   const handleDelete = async (e,_id)=> {
     e.preventDefault();
@@ -12,6 +12,7 @@ const NoteCard = ({note}) => {
 
     try {
       await api.delete(`/notes/${_id}`);
+      setNotes((prev)=> prev.filter((note)=> note._id !== _id))
       toast.success("Note deleted successfully");
     } catch (error) {
       console.error("Error in handleDelete function", error);
@@ -20,7 +21,7 @@ const NoteCard = ({note}) => {
   };
 
   return (
-    <Link to={`/notes/${note._id}`}
+    <Link to={`/note/${note._id}`}
     className="card bg-base-100 hover:shadow-lg hover:shadow-slate-700 transition-all duration-200 border-t-4 border-solid border-[#00ff9d]">
         <div className="card-body">
             <h3 className="card-title text-base-content">{note.title}</h3>
