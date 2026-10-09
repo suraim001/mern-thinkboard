@@ -1,0 +1,25 @@
+{
+  "name": "mern-thinkboard",
+  "version": "1.0.0",
+  "description": "It is a complete MERN stack tutorial.",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm install --workspace=backend && npm install --workspace=frontend && npm run build --workspace=frontend",
+    "start": "npm run start --workspace=backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suraim001/mern-thinkboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/suraim001/mern-thinkboard/issues"
+  },
+  "homepage": "https://github.com/suraim001/mern-thinkboard#readme"
+}
