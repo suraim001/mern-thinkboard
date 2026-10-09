@@ -1,7 +1,0 @@
-{
-    "editor.wordWrap": "on",
-    "css.validate": false,
-    "tailwindCSS.includeLanguages": {
-        "postcss": "postcss"
-    }
-}
