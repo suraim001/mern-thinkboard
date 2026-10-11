@@ -48,6 +48,9 @@ connectDB().then(() => {
 
 
 app.use("/api/notes", noteRoutes);
+app.get("/api/status", (req,res)=>{
+    res.send("Server is Live")
+});
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
