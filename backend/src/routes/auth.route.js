@@ -13,7 +13,7 @@ router.post("/login", login);
 router.get("/google", passport.authenticate("google", {scope: ["profile", "email"], session: false}));
 
 router.get("/google/callback",
-    passport.authenticate("google", {session: false, failureRedirect: `${process.env.CLIENT_URL}/login?error=google_failed`}),
+    passport.authenticate("google", {session: false, failureRedirect: `${(process.env.NODE_ENV === 'development') ? process.env.CLIENT_URL : ""}/login?error=google_failed`}),
     googleCallback
 );
 
