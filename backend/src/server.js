@@ -1,10 +1,15 @@
+// load .env before any other import reads process.env (passport config needs the google keys)
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 
 import connectDB from "./config/db.js";
 import rateLimiter from "./middlewear/rateLimiter.js";
 import noteRoutes from "./routes/note.route.js";
+import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./routes/user.route.js";
+import passport from "./config/passport.js";
+import { isAuthenticated } from "./middlewear/isAuthenticated.js";
 import path from "path";
 
 
@@ -17,8 +22,6 @@ import path from "path";
 
 const app = express();
 
-dotenv.config();
-
 // a middleweare which parse the json bodies
 //what is middleware?
 //middleware is a function that has access to the request object, response object, and the next middleware function in the application's request-response cycle.
@@ -28,6 +31,7 @@ if (process.env.NODE_ENV !== "production") {
     }));
 }
 app.use(express.json());
+app.use(passport.initialize());
 app.use(rateLimiter);
 
 
@@ -47,7 +51,11 @@ connectDB().then(() => {
 });
 
 
-app.use("/api/notes", noteRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/notes", isAuthenticated, noteRoutes);
+
+
 app.get("/api/status", (req,res)=>{
     res.send("Server is Live")
 });

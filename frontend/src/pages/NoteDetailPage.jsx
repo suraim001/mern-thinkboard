@@ -96,11 +96,11 @@ const NoteDetailPage = () => {
   const hasChanged = note.title !== originalNote.title || note.content !== originalNote.content;
 
   return (
-    <div className='min-h-screen bg-base-200'>
+    <div className='min-h-screen'>
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <Link to="/" className="btn btn-ghost">
+            <Link to="/" className="btn btn-ghost border-gray-600">
               <ArrowLeftIcon className='h-5 w-5' />
               Back to Notes
             </Link>

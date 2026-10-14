@@ -12,6 +12,13 @@ const noteSchema = new Schema(
         content: {
             type: String,
             required: true
+        },
+        // owner of the note, every query is filtered by this so users only see their own notes
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+            index: true
         }
     },
     {
