@@ -1,0 +1,40 @@
+# Launch the whole stack:   docker compose up -d --build
+# Then open:                http://localhost:8080
+#
+# The backend reads its variables (MONGO_URI, SECRET_KEY, Upstash, Google OAuth...)
+# from backend/.env. To run MongoDB in a container instead of using MONGO_URI
+# from that file, add the mongo override:
+#   docker compose -f docker-compose.yml -f docker-compose.mongo.yml up -d --build
+
+services:
+  backend:
+    build: ./backend
+    image: thinkboard-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      # these override the matching values in backend/.env for the container setup
+      NODE_ENV: production
+      # PORT: 5001
+      # CLIENT_URL: http://localhost:8080
+    networks:
+      - network
+
+  frontend:
+    build: ./frontend
+    image: thinkboard-frontend
+    restart: unless-stopped
+    environment:
+      # "backend" resolves to the backend service on the shared network
+      BACKEND_URL: http://backend:5001
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge

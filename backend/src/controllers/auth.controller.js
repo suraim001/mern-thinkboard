@@ -86,7 +86,7 @@ const login = async (req, res) => {
 const googleCallback = (req, res) => {
     try {
         const token = generateToken(req.user);
-        const CLIENT_URL = (process.env.NODE_ENV === 'development') ? process.env.CLIENT_URL : "";
+        const CLIENT_URL = (process.env.NODE_ENV === 'production') ? "" : process.env.CLIENT_URL;
 
         res.redirect(`${CLIENT_URL}/auth-success?token=${token}`);
     } catch (error) {

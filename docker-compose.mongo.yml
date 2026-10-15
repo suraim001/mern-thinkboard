@@ -1,0 +1,31 @@
+# Optional: run MongoDB in a container instead of using MONGO_URI from backend/.env.
+#   docker compose -f docker-compose.yml -f docker-compose.mongo.yml up -d --build
+#
+# Data is stored in the mongo-data volume, so it survives container restarts.
+# Remove it with: docker compose -f docker-compose.yml -f docker-compose.mongo.yml down -v
+
+services:
+  mongo:
+    # 8.0 and latest refuse to start on Linux kernels 6.19-7.0.13 (SERVER-121912)
+    image: mongo:8.2
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - network
+
+  backend:
+    environment:
+      # point the backend at the mongo container instead of the URI in backend/.env
+      MONGO_URI: mongodb://mongo:27017/thinkboard
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo-data:
