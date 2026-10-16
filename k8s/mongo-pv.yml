@@ -1,0 +1,15 @@
+# storage for mongodb; hostPath lives on the cluster node (the minikube/kind container)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /data/thinkboard-mongo
+    type: DirectoryOrCreate

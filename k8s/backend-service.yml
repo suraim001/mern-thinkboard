@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # the frontend's nginx proxies /api to http://thinkboard-backend-service:5001
+  name: thinkboard-backend-service
+  namespace: thinkboard
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 5001
+      targetPort: 5001

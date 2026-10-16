@@ -1,0 +1,10 @@
+# non-secret backend settings
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thinkboard-backend-config
+  namespace: thinkboard
+data:
+  NODE_ENV: production
+  PORT: "5001"
+  CLIENT_URL: http://localhost:8080

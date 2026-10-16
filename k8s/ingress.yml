@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: thinkboard-ingress
+  namespace: thinkboard
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: thinkboard.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: thinkboard-backend-service
+                port:
+                  number: 5001
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: thinkboard-frontend-service
+                port:
+                  number: 80
