@@ -84,10 +84,11 @@ const login = async (req, res) => {
 };
 
 const googleCallback = (req, res) => {
+    
+    const CLIENT_URL = (process.env.NODE_ENV === 'production') ? "" : process.env.CLIENT_URL;
+
     try {
         const token = generateToken(req.user);
-        const CLIENT_URL = (process.env.NODE_ENV === 'production') ? "" : process.env.CLIENT_URL;
-
         res.redirect(`${CLIENT_URL}/auth-success?token=${token}`);
     } catch (error) {
         console.error("Google login error", error);
