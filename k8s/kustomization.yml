@@ -1,4 +1,3 @@
-
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -6,19 +5,36 @@ resources:
   - https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 
 patches:
-  - path: ingress-controller-node-selector.yaml
-    target:
+  # Pin the controller to the control-plane node (the one with host ports mapped)
+  - target:
       group: apps
       version: v1
       kind: Deployment
       name: ingress-nginx-controller
       namespace: ingress-nginx
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: ingress-nginx-controller
+        namespace: ingress-nginx
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              kubernetes.io/hostname: thinkboard-cluster-control-plane
 
-  
-  - path: ingress-controller-service-patch.yaml
-    target:
+  # Traffic enters via hostPort, so the Service doesn't need to be NodePort
+  - target:
       version: v1
       kind: Service
       name: ingress-nginx-controller
       namespace: ingress-nginx
-
+    patch: |-
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: ingress-nginx-controller
+        namespace: ingress-nginx
+      spec:
+        type: ClusterIP

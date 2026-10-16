@@ -338,7 +338,7 @@ kubectl apply -f k8s/frontend-deployment.yml -f k8s/frontend-service.yml
 kubectl apply -f k8s/ingress.yml
 ```
 
-> Apply files individually as shown. `kubectl apply -f k8s/` would also pick up the ingress-controller patch files.
+> Apply files individually as shown. `kubectl apply -f k8s/` would also pick up `kustomization.yml`, which is not a cluster resource.
 
 **5. Point the hostname at the cluster and open the app**
 
